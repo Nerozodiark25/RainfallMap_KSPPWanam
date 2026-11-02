@@ -42,13 +42,12 @@ TIMEZONE_LABEL = "UTC+8"
 # available in the layer control for GitHub Pages.
 
 # ---------- Heavy rainfall thresholds (mm) ----------
-# Tuned for tropical Sulawesi / BMKG-style guidance
 THRESHOLD_PEAK_MODERATE = 10.0   # mm in any 3-hour period → Moderate
 THRESHOLD_PEAK_HEAVY   = 20.0   # mm in any 3-hour period → Heavy
-THRESHOLD_PEAK_EXTREME = 40.0   # mm in any 3-hour period → Very Heavy / Extreme
-THRESHOLD_24H_MODERATE = 30.0   # expected 24h rainfall → Moderate
-THRESHOLD_24H_HEAVY    = 50.0   # expected 24h rainfall → Heavy
-THRESHOLD_24H_EXTREME  = 100.0  # expected 24h rainfall → Very Heavy
+THRESHOLD_PEAK_EXTREME = 30.0   # mm in any 3-hour period → Very Heavy / Extreme
+THRESHOLD_24H_MODERATE = 15.0   # expected 24h rainfall → Moderate
+THRESHOLD_24H_HEAVY    = 30.0   # expected 24h rainfall → Heavy
+THRESHOLD_24H_EXTREME  = 50.0  # expected 24h rainfall → Very Heavy
 
 LOCATIONS = [
     (0.582721,121.291988),(0.716684,121.967408),(0.834690,121.595142),
@@ -61,7 +60,7 @@ LOCATIONS = [
 ]
 
 MAP_CENTER = [0.639296, 121.595870]
-ZOOM_START = 10
+ZOOM_START = 11
 # ===========================================
 
 
