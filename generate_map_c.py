@@ -435,7 +435,7 @@ def add_basemaps(m):
         attr="&copy; OpenStreetMap contributors",
         name="OpenStreetMap",
         max_zoom=19,
-        show=True,
+        show=False,
     ).add_to(m)
     folium.TileLayer(
         tiles="https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png",
@@ -458,19 +458,11 @@ def add_basemaps(m):
         show=False,
     ).add_to(m)
     folium.TileLayer(
-        tiles="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
-        attr="&copy; OpenStreetMap contributors &copy; CARTO",
-        name="Carto Dark",
-        subdomains="abcd",
-        max_zoom=20,
-        show=False,
-    ).add_to(m)
-    folium.TileLayer(
         tiles="https://tile.openstreetmap.org/{z}/{x}/{y}.png",
         attr="&copy; OpenStreetMap contributors",
         name="OpenStreetMap",
         max_zoom=19,
-        show=False,
+        show=True,
     ).add_to(m)
 
 # ────────────────────────────────────────────────
