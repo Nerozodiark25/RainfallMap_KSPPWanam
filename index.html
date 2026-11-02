@@ -34,7 +34,7 @@
             height: calc(100vh - 60px);
         }
         .sidebar {
-            width: 260px;
+            width: 280px;
             background: #f0f5ff;
             border-right: 1px solid #c0d0f0;
             padding: 15px;
@@ -57,9 +57,64 @@
             color: white;
             text-align: left;
             cursor: pointer;
+            font-size: 14px;
         }
         .menu-btn:hover { background: #1e40af; }
         .menu-btn.active { background: #16a34a; }
+
+        /* ---- Alerts / Warnings section ---- */
+        .alerts-section {
+            margin: 14px 0 10px 0;
+        }
+        .alerts-section h3 {
+            margin: 0 0 8px 0;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .alert-card {
+            background: white;
+            border-radius: 8px;
+            padding: 10px 12px;
+            margin-bottom: 8px;
+            border-left: 5px solid #94a3b8;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+            font-size: 13px;
+            line-height: 1.4;
+        }
+        .alert-card.heavy {
+            border-left-color: #ea580c;
+            background: #fff7ed;
+        }
+        .alert-card.extreme {
+            border-left-color: #dc2626;
+            background: #fef2f2;
+        }
+        .alert-card.ok {
+            border-left-color: #16a34a;
+            background: #f0fdf4;
+        }
+        .alert-card .level {
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 12px;
+            margin-bottom: 2px;
+        }
+        .alert-card.heavy .level { color: #c2410c; }
+        .alert-card.extreme .level { color: #b91c1c; }
+        .alert-card.ok .level { color: #15803d; }
+        .alert-meta {
+            color: #64748b;
+            font-size: 11px;
+            margin-top: 4px;
+        }
+        .no-alert {
+            font-size: 13px;
+            color: #64748b;
+            padding: 6px 0;
+        }
+
         .main {
             flex: 1;
             display: flex;
@@ -113,7 +168,7 @@
                 position: absolute;
                 left: 0;
                 top: 60px;
-                width: 260px;
+                width: 280px;
                 height: calc(100vh - 60px);
                 z-index: 1000;
                 box-shadow: 2px 0 10px rgba(0,0,0,0.15);
@@ -139,11 +194,24 @@
             <button class="menu-btn" onclick="switchMap(event,'b')">Map B - Paguyaman</button>
             <button class="menu-btn" onclick="switchMap(event,'c')">Map C - Randangan</button>
            
+            <!-- ========== ALERTS / WARNINGS ========== -->
+            <div class="alerts-section">
+                <h3>⚠️ Alerts</h3>
+                <div id="alertsContainer">
+                    <div class="no-alert">Loading alerts…</div>
+                </div>
+            </div>
+
             <hr>
             <h3>Info</h3>
             <p style="font-size:13px; line-height:1.5;">
                 • Data: OpenWeatherMap<br>
-                • Updated every 6 hours
+                • Updated every 6 hours<br>
+                • Thresholds (Map A):<br>
+                &nbsp;&nbsp;Peak ≥ 20 mm (Heavy)<br>
+                &nbsp;&nbsp;Peak ≥ 40 mm (Extreme)<br>
+                &nbsp;&nbsp;24h ≥ 50 mm (Heavy)<br>
+                &nbsp;&nbsp;24h ≥ 100 mm (Extreme)
             </p>
         </div>
         <div class="main">
@@ -171,8 +239,12 @@
         const toggleBtn = document.getElementById("toggleSidebar");
         const mapFrame = document.getElementById("mapFrame");
         const loadingOverlay = document.getElementById("loadingOverlay");
+        const alertsContainer = document.getElementById("alertsContainer");
 
-        // ===== SIDEBAR TOGGLE (only once) =====
+        // Current active map type (a / b / c)
+        let currentMap = "a";
+
+        // ===== SIDEBAR TOGGLE =====
         toggleBtn.addEventListener("click", () => {
             sidebar.classList.toggle("collapsed");
         });
@@ -183,19 +255,16 @@
 
         function forceHardRefresh() {
             if (!mapFrame.src) return;
-            
             showLoading();
-            
             let currentSrc = mapFrame.src.split('?')[0];
             const timestamp = new Date().getTime();
             mapFrame.src = currentSrc + "?v=" + timestamp;
-            
-            console.log("🔄 Hard refreshing map:", mapFrame.src);
+            // Also refresh the alerts for the current map
+            loadWarnings(currentMap);
         }
 
         function startAutoRefresh() {
             if (refreshInterval) clearInterval(refreshInterval);
-            
             refreshInterval = setInterval(() => {
                 forceHardRefresh();
             }, REFRESH_MINUTES * 60 * 1000);
@@ -213,6 +282,7 @@
 
         function switchMap(event, type) {
             showLoading();
+            currentMap = type;
             const title = document.getElementById("mapTitle");
             document.querySelectorAll(".menu-btn").forEach(btn => btn.classList.remove("active"));
             event.target.classList.add("active");
@@ -224,6 +294,9 @@
 
             const timestamp = new Date().getTime();
             mapFrame.src = newSrc + "?v=" + timestamp;
+
+            // Load corresponding warnings
+            loadWarnings(type);
         }
 
         mapFrame.onload = hideLoading;
@@ -231,7 +304,7 @@
         // Live clock
         function updateTime() {
             const now = new Date();
-            document.getElementById("timestamp").innerText = 
+            document.getElementById("timestamp").innerText =
                 now.toLocaleString('id-ID', { timeZone: 'Asia/Makassar' });
         }
 
@@ -244,11 +317,89 @@
             }
         }
 
+        // ========== LOAD WARNINGS FROM JSON ==========
+        async function loadWarnings(mapType) {
+            const file = `warnings_${mapType}.json`;
+            alertsContainer.innerHTML = `<div class="no-alert">Loading alerts…</div>`;
+
+            try {
+                const resp = await fetch(file + "?v=" + Date.now());
+                if (!resp.ok) {
+                    // File not present yet (e.g. Map B/C not updated)
+                    alertsContainer.innerHTML = `
+                        <div class="alert-card ok">
+                            <div class="level">No alert data</div>
+                            <div>warnings_${mapType}.json not found.<br>
+                            Run the improved generator for this map.</div>
+                        </div>`;
+                    return;
+                }
+                const data = await resp.json();
+
+                if (!data.has_warnings || !data.stations || data.stations.length === 0) {
+                    alertsContainer.innerHTML = `
+                        <div class="alert-card ok">
+                            <div class="level">✓ No heavy rainfall</div>
+                            <div>All stations below thresholds.</div>
+                            <div class="alert-meta">${data.generated || ""} ${data.timezone || ""}</div>
+                        </div>`;
+                    return;
+                }
+
+                // Build cards – extreme first
+                const stations = [...data.stations].sort((a, b) => {
+                    const order = { extreme: 2, heavy: 1, normal: 0 };
+                    return (order[b.level] || 0) - (order[a.level] || 0);
+                });
+
+                let html = "";
+                if (data.n_extreme > 0) {
+                    html += `<div class="alert-card extreme">
+                        <div class="level">🔴 ${data.n_extreme} Extreme station(s)</div>
+                        <div>Peak ≥ ${data.thresholds?.peak_extreme_mm ?? 40} mm or 24h ≥ ${data.thresholds?.h24_extreme_mm ?? 100} mm</div>
+                    </div>`;
+                }
+                if (data.n_heavy > 0) {
+                    html += `<div class="alert-card heavy">
+                        <div class="level">🟠 ${data.n_heavy} Heavy station(s)</div>
+                        <div>Peak ≥ ${data.thresholds?.peak_heavy_mm ?? 20} mm or 24h ≥ ${data.thresholds?.h24_heavy_mm ?? 50} mm</div>
+                    </div>`;
+                }
+
+                // Individual stations (limit to keep sidebar clean)
+                const maxShow = 6;
+                stations.slice(0, maxShow).forEach(s => {
+                    const cls = s.level === "extreme" ? "extreme" : "heavy";
+                    html += `
+                        <div class="alert-card ${cls}">
+                            <div class="level">${s.level}</div>
+                            <div>Peak: <b>${s.peak_mm} mm</b> · 24h: <b>${s.expected_24h_mm} mm</b></div>
+                            <div class="alert-meta">${s.lat.toFixed(3)}, ${s.lon.toFixed(3)} · PoP ${s.max_pop}%</div>
+                        </div>`;
+                });
+                if (stations.length > maxShow) {
+                    html += `<div class="no-alert">+ ${stations.length - maxShow} more station(s) on the map</div>`;
+                }
+
+                html += `<div class="alert-meta" style="margin-top:6px;">Updated: ${data.generated || ""} ${data.timezone || ""}</div>`;
+                alertsContainer.innerHTML = html;
+
+            } catch (err) {
+                console.warn("Could not load warnings:", err);
+                alertsContainer.innerHTML = `
+                    <div class="alert-card ok">
+                        <div class="level">Alerts unavailable</div>
+                        <div>Could not read ${file}</div>
+                    </div>`;
+            }
+        }
+
         // Initialize
         window.onload = () => {
             checkMobile();
             updateTime();
             startAutoRefresh();
+            loadWarnings("a");   // initial map
         };
 
         setInterval(updateTime, 1000);
