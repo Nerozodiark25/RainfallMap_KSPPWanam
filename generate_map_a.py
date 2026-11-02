@@ -427,20 +427,14 @@ LEVEL_STYLE = {
     "moderate": {"color": "#ca8a04", "icon_color": "beige",  "icon": "cloud",                "label": "MODERATE", "radius": 8},
 }
 
+
 def add_basemaps(m):
-    """Showed layer is based on show boolean"""
-    folium.TileLayer(
-        tiles="https://tile.openstreetmap.org/{z}/{x}/{y}.png",
-        attr="&copy; OpenStreetMap contributors",
-        name="OpenStreetMap",
-        max_zoom=19,
-        show=True,
-    ).add_to(m)
+    """First layer added is the one shown on load."""
     folium.TileLayer(
         tiles="https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png",
         attr='© OpenStreetMap contributors, Tiles style by Humanitarian OpenStreetMap Team',
         name="OSM HOT",
-        show=False,
+        show=True,
     ).add_to(m)
     folium.TileLayer(
         tiles="https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}",
@@ -471,7 +465,7 @@ def add_basemaps(m):
         max_zoom=19,
         show=False,
     ).add_to(m)
-
+    
 # ────────────────────────────────────────────────
 # Prediction Map
 # ────────────────────────────────────────────────
@@ -520,7 +514,7 @@ def create_prediction_map():
 
         max_pop = max(d["pop"] for d in fc)
         rain_at_max_pop = max(d["rainfall"] for d in fc)
-        expected_24h = sum((d["pop"] / 100.0) * d["rainfall"] for d in fc)
+        expected_24h = sum(d["rainfall"] for d in fc)
 
         peak_lvl = classify_peak(rain_at_max_pop)
         h24_lvl  = classify_24h(expected_24h)
@@ -837,6 +831,7 @@ def create_realtime_map():
     folium.LayerControl().add_to(m)
     m.save("rainfall_realtime_map_a.html")
     print("✅ Saved: rainfall_realtime_map_a.html")
+
 
 # ────────────────────────────────────────────────
 # Main
