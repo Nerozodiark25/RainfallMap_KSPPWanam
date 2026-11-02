@@ -37,9 +37,7 @@ TIMEZONE_OFFSET = timedelta(hours=8)       # WITA / Asia/Makassar
 TIMEZONE_LABEL = "UTC+8"
 
 # Do not use tile.openstreetmap.org as the default. Those servers return
-# HTTP 403 ("Access blocked") when the HTML is opened as a local file,
-# because file:// sends no Referer. CARTO and Esri allow that. OSM is still
-# available in the layer control for GitHub Pages.
+
 
 # ---------- Heavy rainfall thresholds (mm) ----------
 THRESHOLD_PEAK_MODERATE = 10.0   # mm in any 3-hour period → Moderate
@@ -62,7 +60,6 @@ LOCATIONS = [
 MAP_CENTER = [0.639296, 121.595870]
 ZOOM_START = 11
 # ===========================================
-
 
 # ────────────────────────────────────────────────
 # Helper: Embed image as base64
