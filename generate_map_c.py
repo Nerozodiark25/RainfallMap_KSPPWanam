@@ -521,7 +521,7 @@ def create_prediction_map():
 
         max_pop = max(d["pop"] for d in fc)
         rain_at_max_pop = max(d["rainfall"] for d in fc)
-        expected_24h = sum((d["pop"] / 100.0) * d["rainfall"] for d in fc)
+        expected_24h = sum(d["rainfall"] for d in fc)
 
         peak_lvl = classify_peak(rain_at_max_pop)
         h24_lvl  = classify_24h(expected_24h)
