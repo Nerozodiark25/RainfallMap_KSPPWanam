@@ -1,8 +1,8 @@
 """
-Improved Weather Map Generation script for location c: Randangan Area
+Improved Weather Map Generation script for location b: Paguyaman Area
 - Heavy rainfall warnings (peak 3h + expected 24h)
 - Safe rivers layer (no crash if GeoJSON missing)
-- Writes warnings_c.json for the dashboard sidebar
+- Writes warnings_b.json for the dashboard sidebar
 - Better local / GitHub compatibility
 """
 
@@ -21,7 +21,7 @@ import matplotlib.pyplot as plt
 from folium.plugins import HeatMap
 
 logging.basicConfig(
-    filename="rainfall_maps_c.log",
+    filename="rainfall_maps_b.log",
     level=logging.INFO,
     format="%(asctime)s - %(levelname)s - %(message)s"
 )
@@ -51,17 +51,17 @@ THRESHOLD_24H_HEAVY    = 50.0   # expected 24h rainfall → Heavy
 THRESHOLD_24H_EXTREME  = 100.0  # expected 24h rainfall → Very Heavy
 
 LOCATIONS = [
-    (0.582721,121.291988),(0.716684,121.967408),(0.834690,121.595142),
-    (0.449890,121.800488),(0.577649,121.552066),(0.906919,121.833410),
-    (0.684399,121.750814),(0.774285,121.391439),(0.587349,121.874786),
-    (0.460289,121.133057),(0.483252,121.430095),(0.548317,121.688382),
-    (0.641948,121.426263),(0.820464,121.731157),(0.709036,121.545009),
-    (0.713545,121.274773),(0.768192,121.845260),(0.647970,121.640276),
-    (0.484172,121.321123),(0.748587,121.657740),
+    (0.649374,122.158923),(0.668016,122.623020),(0.845119,122.383486),
+    (0.523573,122.398457),(0.677338,122.338574),(0.630731,122.009214),
+    (0.518877,122.233778),(0.785022,122.488283),(0.779871,122.233778),
+    (0.584125,122.518224),(0.630731,122.428399),(0.584125,122.308632),
+    (0.751907,122.398457),(0.658695,122.248749),(0.521151,122.053629),
+    (0.503020,122.323603),(0.733265,122.158923),(0.789192,122.323603),
+    (0.677338,122.084069),(0.668016,122.533195)
 ]
 
-MAP_CENTER = [0.639296, 121.595870]
-ZOOM_START = 10
+MAP_CENTER = [0.642760, 122.381879]
+ZOOM_START = 11
 # ===========================================
 
 
@@ -488,7 +488,7 @@ def create_prediction_map():
                 background:rgba(255,255,255,0.94); padding:6px 16px 5px; border-radius:6px;
                 box-shadow:0 2px 8px rgba(0,0,0,0.22); z-index:1000; text-align:center;
                 border:1px solid #ccc; max-width:min(560px, 70vw); pointer-events:none;">
-        <div style="font-size:17px; font-weight:700; line-height:1.2;">Rainfall Map – Randangan & Surroundings</div>
+        <div style="font-size:17px; font-weight:700; line-height:1.2;">Rainfall Map – Paguyaman & Surroundings</div>
         <div style="font-size:11px; font-weight:500; color:#444; margin-top:2px;">
             {generated_time} {TIMEZONE_LABEL} · OpenWeatherMap · IDW
         </div>
@@ -622,10 +622,10 @@ def create_prediction_map():
         vmax_p = round(max_p * 1.15, 1)
 
         add_idw_overlay(
-            fg_idw_peak, points_peak, values_peak, "idw_peak_c",
-            "YlOrRd", "IDW Peak Rain (mm)_c", vmin=vmin_p, vmax=vmax_p
+            fg_idw_peak, points_peak, values_peak, "idw_peak_b",
+            "YlOrRd", "IDW Peak Rain (mm)_b", vmin=vmin_p, vmax=vmax_p
         )
-        create_colorbar_png("colorbar_peak_c.png", "YlOrRd", vmin_p, vmax_p, "Peak Rainfall (mm)")
+        create_colorbar_png("colorbar_peak_b.png", "YlOrRd", vmin_p, vmax_p, "Peak Rainfall (mm)")
 
     if values_24h:
         min_24 = min(values_24h)
@@ -634,16 +634,16 @@ def create_prediction_map():
         vmax_24 = round(max_24 * 1.10, 1)
 
         add_idw_overlay(
-            fg_idw_24h, points_24h, values_24h, "idw_24h_c",
-            "YlGnBu", "IDW Expected 24h (mm)_c", vmin=vmin_24, vmax=vmax_24
+            fg_idw_24h, points_24h, values_24h, "idw_24h_b",
+            "YlGnBu", "IDW Expected 24h (mm)_b", vmin=vmin_24, vmax=vmax_24
         )
-        create_colorbar_png("colorbar_24h_c.png", "YlGnBu", vmin_24, vmax_24, "Expected 24h Rainfall (mm)")
+        create_colorbar_png("colorbar_24h_b.png", "YlGnBu", vmin_24, vmax_24, "Expected 24h Rainfall (mm)")
 
     fg_idw_peak.add_to(m)
     fg_idw_24h.add_to(m)
 
     # Banner only for heavy / extreme. Moderate stays on the marker and in
-    # warnings_c.json (sidebar), so the map is not covered on a normal wet day.
+    # warnings_b.json (sidebar), so the map is not covered on a normal wet day.
     n_extreme = sum(1 for s in warning_stations if s["level"] == "extreme")
     n_heavy = sum(1 for s in warning_stations if s["level"] == "heavy")
     if n_extreme or n_heavy:
@@ -699,21 +699,21 @@ def create_prediction_map():
     </div>
     {% endraw %}
     '''
-    peak_b64 = embed_image_to_base64("colorbar_peak_c.png")
-    _24h_b64 = embed_image_to_base64("colorbar_24h_c.png")
+    peak_b64 = embed_image_to_base64("colorbar_peak_b.png")
+    _24h_b64 = embed_image_to_base64("colorbar_24h_b.png")
     legend_html_pred = legend_html_pred.replace("[PEAK_BASE64]", peak_b64).replace("[24H_BASE64]", _24h_b64)
     add_draggable_legend(m, legend_html_pred, "legend-pred")
 
     add_rivers_layer(m, "RBI_Sulawesi2_sungai.geojson", "Rivers")
     folium.LayerControl(collapsed=True).add_to(m)
 
-    m.save("rainfall_prediction_map_c.html")
-    print("✅ Saved: rainfall_prediction_map_c.html")
+    m.save("rainfall_prediction_map_b.html")
+    print("✅ Saved: rainfall_prediction_map_b.html")
 
     # ---------- Write warnings JSON for the dashboard ----------
     warnings_payload = {
-        "map": "c",
-        "area": "Randangan",
+        "map": "b",
+        "area": "Paguyaman",
         "generated": generated_time,
         "timezone": TIMEZONE_LABEL,
         "thresholds": {
@@ -731,9 +731,9 @@ def create_prediction_map():
         "stations": warning_stations,
         "summary": warnings_list,
     }
-    with open("warnings_c.json", "w", encoding="utf-8") as f:
+    with open("warnings_b.json", "w", encoding="utf-8") as f:
         json.dump(warnings_payload, f, indent=2, ensure_ascii=False)
-    print("✅ Saved: warnings_c.json (for dashboard sidebar)")
+    print("✅ Saved: warnings_b.json (for dashboard sidebar)")
 
 
 # ────────────────────────────────────────────────
@@ -749,7 +749,7 @@ def create_realtime_map():
                 background:rgba(255,255,255,0.94); padding:6px 16px 5px; border-radius:6px;
                 box-shadow:0 2px 8px rgba(0,0,0,0.22); z-index:1000; text-align:center;
                 border:1px solid #ccc; max-width:min(560px, 70vw); pointer-events:none;">
-        <div style="font-size:17px; font-weight:700; line-height:1.2;">Rainfall Map – Randangan (Real-time)</div>
+        <div style="font-size:17px; font-weight:700; line-height:1.2;">Rainfall Map – Paguyaman (Real-time)</div>
         <div style="font-size:11px; font-weight:500; color:#444; margin-top:2px;">
             {generated_time} {TIMEZONE_LABEL} · OpenWeatherMap · IDW
         </div>
@@ -797,11 +797,11 @@ def create_realtime_map():
         values.append(rain)
 
     fg_markers.add_to(m)
-    add_idw_overlay(fg_idw, points, values, "idw_current_c", "YlGnBu", "Current 1h Rainfall_a")
+    add_idw_overlay(fg_idw, points, values, "idw_current_b", "YlGnBu", "Current 1h Rainfall_a")
 
     rmax = max(values) if values else 0
     vmax = max(5.0, round(rmax + 0.8, 1)) if rmax > 0 else 3.0
-    create_colorbar_png("colorbar_current_c.png", "YlGnBu", 0.0, vmax, "Current 1h Rainfall (mm)")
+    create_colorbar_png("colorbar_current_b.png", "YlGnBu", 0.0, vmax, "Current 1h Rainfall (mm)")
 
     fg_idw.add_to(m)
 
@@ -831,13 +831,13 @@ def create_realtime_map():
     </div>
     {% endraw %}
     '''
-    current_b64 = embed_image_to_base64("colorbar_current_c.png")
+    current_b64 = embed_image_to_base64("colorbar_current_b.png")
     legend_html_real = legend_html_real.replace("[CURRENT_BASE64]", current_b64)
     add_draggable_legend(m, legend_html_real, "legend-real")
 
     folium.LayerControl().add_to(m)
-    m.save("rainfall_realtime_map_c.html")
-    print("✅ Saved: rainfall_realtime_map_c.html")
+    m.save("rainfall_realtime_map_b.html")
+    print("✅ Saved: rainfall_realtime_map_b.html")
 
 
 # ────────────────────────────────────────────────
@@ -849,5 +849,5 @@ if __name__ == "__main__":
     create_prediction_map()
     # create_realtime_map()   # enable when you want the real-time map
     print("Done!")
-    print("  • rainfall_prediction_map_c.html")
-    print("  • warnings_c.json   ← used by the dashboard sidebar")
+    print("  • rainfall_prediction_map_b.html")
+    print("  • warnings_b.json   ← used by the dashboard sidebar")
