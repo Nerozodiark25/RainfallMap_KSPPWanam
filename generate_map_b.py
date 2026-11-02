@@ -430,7 +430,7 @@ LEVEL_STYLE = {
 
 def add_basemaps(m):
     """Showed layer is based on show boolean"""
-     folium.TileLayer(
+    folium.TileLayer(
         tiles="https://tile.openstreetmap.org/{z}/{x}/{y}.png",
         attr="&copy; OpenStreetMap contributors",
         name="OpenStreetMap",
