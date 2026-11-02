@@ -46,7 +46,7 @@ THRESHOLD_PEAK_MODERATE = 10.0   # mm in any 3-hour period → Moderate
 THRESHOLD_PEAK_HEAVY   = 20.0   # mm in any 3-hour period → Heavy
 THRESHOLD_PEAK_EXTREME = 30.0   # mm in any 3-hour period → Very Heavy / Extreme
 THRESHOLD_24H_MODERATE = 15.0   # expected 24h rainfall → Moderate
-THRESHOLD_24H_HEAVY    = 40.0   # expected 24h rainfall → Heavy
+THRESHOLD_24H_HEAVY    = 30.0   # expected 24h rainfall → Heavy
 THRESHOLD_24H_EXTREME  = 50.0  # expected 24h rainfall → Very Heavy
 
 LOCATIONS = [
