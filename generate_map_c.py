@@ -552,7 +552,7 @@ def create_prediction_map():
 
         folium.Marker(
             [lat, lon],
-            popup=popup_obj,
+            popup=folium.Popup(popup_content, max_width=360),
             tooltip=folium.Tooltip(tooltip_text),
             icon=folium.Icon(icon=icon_name, prefix="fa", color=icon_color),
         ).add_to(fg_markers)
