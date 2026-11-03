@@ -1,8 +1,8 @@
 {
   "map": "c",
   "area": "Randangan",
-  "generated": "03 November 2026 02:15",
-  "last_update": "2026-11-02T18:15:30Z",
+  "generated": "03 November 2026 10:15",
+  "last_update": "2026-11-03T02:15:22Z",
   "timezone": "UTC+8",
   "thresholds": {
     "peak_heavy_mm": 20.0,
@@ -20,8 +20,8 @@
     {
       "lat": 0.906919,
       "lon": 121.83341,
-      "peak_mm": 6.8,
-      "expected_24h_mm": 17.7,
+      "peak_mm": 5.8,
+      "expected_24h_mm": 15.3,
       "max_pop": 100,
       "level": "moderate",
       "peak_level": "normal",
@@ -29,6 +29,6 @@
     }
   ],
   "summary": [
-    "MODERATE: Peak 6.8 mm / 24h 17.7 mm @ (0.907, 121.833)"
+    "MODERATE: Peak 5.8 mm / 24h 15.3 mm @ (0.907, 121.833)"
   ]
 }
