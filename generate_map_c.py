@@ -522,7 +522,7 @@ def add_basemaps(m):
 # Prediction Map
 # ────────────────────────────────────────────────
 def create_prediction_map():
-    m = folium.Map(location=MAP_CENTER, zoom_start=ZOOM_START, tiles=None, control_scale=True)
+    m = folium.Map(location=MAP_CENTER, zoom_start=ZOOM_START, tiles=None, control_scale=True, zoom_snap=0.25, zoom_delta=0.5)
     add_basemaps(m)
 
     generated_utc = datetime.now(timezone.utc)
