@@ -1,8 +1,8 @@
 {
   "map": "c",
   "area": "Randangan",
-  "generated": "05 November 2026 08:53",
-  "last_update": "2026-11-05T00:54:11Z",
+  "generated": "05 November 2026 21:09",
+  "last_update": "2026-11-05T13:09:33Z",
   "timezone": "UTC+8",
   "thresholds": {
     "peak_heavy_mm": 20.0,
@@ -12,10 +12,45 @@
     "h24_extreme_mm": 50.0,
     "h24_moderate_mm": 15.0
   },
-  "has_warnings": false,
+  "has_warnings": true,
   "n_heavy": 0,
   "n_extreme": 0,
-  "n_moderate": 0,
-  "stations": [],
-  "summary": []
+  "n_moderate": 3,
+  "stations": [
+    {
+      "lat": 0.716684,
+      "lon": 121.967408,
+      "peak_mm": 6.1,
+      "expected_24h_mm": 15.3,
+      "max_pop": 100,
+      "level": "moderate",
+      "peak_level": "normal",
+      "h24_level": "moderate"
+    },
+    {
+      "lat": 0.713545,
+      "lon": 121.274773,
+      "peak_mm": 7.3,
+      "expected_24h_mm": 15.7,
+      "max_pop": 100,
+      "level": "moderate",
+      "peak_level": "normal",
+      "h24_level": "moderate"
+    },
+    {
+      "lat": 0.768192,
+      "lon": 121.84526,
+      "peak_mm": 5.3,
+      "expected_24h_mm": 15.9,
+      "max_pop": 100,
+      "level": "moderate",
+      "peak_level": "normal",
+      "h24_level": "moderate"
+    }
+  ],
+  "summary": [
+    "MODERATE: Peak 6.1 mm / 24h 15.3 mm @ (0.717, 121.967)",
+    "MODERATE: Peak 7.3 mm / 24h 15.7 mm @ (0.714, 121.275)",
+    "MODERATE: Peak 5.3 mm / 24h 15.9 mm @ (0.768, 121.845)"
+  ]
 }
