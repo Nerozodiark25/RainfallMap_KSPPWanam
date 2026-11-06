@@ -529,7 +529,7 @@ def create_prediction_map():
                 background:rgba(255,255,255,0.94); padding:6px 16px 5px; border-radius:6px;
                 box-shadow:0 2px 8px rgba(0,0,0,0.22); z-index:1000; text-align:center;
                 border:1px solid #ccc; max-width:min(560px, 70vw); pointer-events:none;">
-        <div style="font-size:17px; font-weight:700; line-height:1.2;">Rainfall Map – LBB & Surroundings</div>
+        <div style="font-size:17px; font-weight:700; line-height:1.2;">Rainfall Map</div>
         <div style="font-size:11px; font-weight:500; color:#444; margin-top:2px;">
             {generated_time} {TIMEZONE_LABEL} · OpenWeatherMap · IDW
         </div>
@@ -831,7 +831,7 @@ def create_realtime_map():
                 background:rgba(255,255,255,0.94); padding:6px 16px 5px; border-radius:6px;
                 box-shadow:0 2px 8px rgba(0,0,0,0.22); z-index:1000; text-align:center;
                 border:1px solid #ccc; max-width:min(560px, 70vw); pointer-events:none;">
-        <div style="font-size:17px; font-weight:700; line-height:1.2;">Rainfall Map – LBB (Real-time)</div>
+        <div style="font-size:17px; font-weight:700; line-height:1.2;">Rainfall Map (Real-time)</div>
         <div style="font-size:11px; font-weight:500; color:#444; margin-top:2px;">
             {generated_time} {TIMEZONE_LABEL} · OpenWeatherMap · IDW
         </div>
