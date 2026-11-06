@@ -1,5 +1,5 @@
 """
-Improved Weather Map Generation script for location a: Limboto - Bolango - Bone Basin Area
+Improved Weather Map Generation script for location KSPP Wanam
 - Heavy rainfall warnings (peak 3h + expected 24h)
 - Safe rivers layer (no crash if GeoJSON missing)
 - Writes warnings_a.json for the dashboard sidebar
@@ -50,16 +50,15 @@ THRESHOLD_24H_HEAVY    = 30.0   # expected 24h rainfall → Heavy
 THRESHOLD_24H_EXTREME  = 50.0  # expected 24h rainfall → Very Heavy
 
 LOCATIONS = [
-    (0.507739,123.224852),(0.531979,122.720655),(0.502984,123.626910),(0.777981,122.856571),
-    (0.539958,122.977448),(0.378843,123.420817),(0.583394,123.422561),(0.700981,123.164251),
-    (0.671768,122.858140),(0.648886,123.295000),(0.570415,123.107009),(0.392709,123.284547),
-    (0.524208,122.850680),(0.662549,123.011900),(0.472134,123.499119),(0.481546,123.363297),
-    (0.752228,123.080434),(0.602480,123.200672),(0.565496,123.328449),(0.560916,123.509104),
-    (0.914343,123.047961),(0.816298,122.960883),(0.476242,123.138941)
+    (-7.518193,139.160288),(-7.418098,139.411958),(-7.541398,139.314494),(-7.417665,139.254164),
+    (-7.538175,139.414435),(-7.433882,139.128696),(-7.457856,139.334512),(-7.498726,139.246498),
+    (-7.452226,139.194305),(-7.478197,139.392610),(-7.544458,139.211885),(-7.405477,139.357470),
+    (-7.522290,139.365513),(-7.493106,139.298209),(-7.483089,139.125148),(-7.544151,139.265404),
+    (-7.413118,139.302798),(-7.496206,139.202158),(-7.457752,139.270066),(-7.534095,139.124189)
 ]
 
-MAP_CENTER = [0.648886, 123.295000]
-ZOOM_START = 10
+MAP_CENTER = [ -7.474946, 139.261652]
+ZOOM_START = 11
 # ===========================================
 
 
@@ -784,7 +783,7 @@ def create_prediction_map():
         "unavailable_stations": unavailable_stations,
     }
     history_changed = save_weather_history(
-        "rainfall_history_a.json", "a", "Limboto - Bolango - Bone Basin",
+        "rainfall_history_a.json", "a", "KSPP Wanam",
         history_snapshot, last_update,
     )
     if history_changed:
@@ -794,8 +793,8 @@ def create_prediction_map():
 
     # ---------- Write warnings JSON for the dashboard ----------
     warnings_payload = {
-        "map": "a",
-        "area": "Limboto - Bolango - Bone Basin",
+        "map": "KSPP",
+        "area": "Wanam",
         "generated": generated_time,
         "last_update": last_update,
         "timezone": TIMEZONE_LABEL,
