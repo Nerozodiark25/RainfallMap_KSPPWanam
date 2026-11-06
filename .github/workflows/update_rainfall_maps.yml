@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      OPENWEATHER_API_KEY: ${{ secrets.OPENWEATHER_API_KEY }}
+      OPENWEATHER_API_KEY: ${{secrets.OPENWEATHER_API_KEY}}
 
     steps:
       - name: Checkout repository
@@ -34,24 +34,24 @@ jobs:
         run: python generate_map_a.py
 
       # ✅ 1-minute delay
-      - name: Wait 1 minute before Group B
-        run: sleep 60
+      # - name: Wait 1 minute before Group B
+      #   run: sleep 60
 
       # -------------------------
       # MAP GROUP B
       # -------------------------
-      - name: Run Map Group B
-        run: python generate_map_b.py
+      # - name: Run Map Group B
+      #   run: python generate_map_b.py
 
-      # ✅ 1-minute delay
-      - name: Wait 1 minute before Group C
-        run: sleep 60
+      # # ✅ 1-minute delay
+      # - name: Wait 1 minute before Group C
+      #   run: sleep 60
 
       # -------------------------
       # MAP GROUP C
       # -------------------------
-      - name: Run Map Group C
-        run: python generate_map_c.py
+      # - name: Run Map Group C
+      #   run: python generate_map_c.py
 
       # -------------------------
       # COMMIT ONCE
