@@ -1,8 +1,8 @@
 {
   "map": "KSPP",
   "area": "Wanam",
-  "generated": "11 November 2026 07:59",
-  "last_update": "2026-11-10T23:59:43Z",
+  "generated": "11 November 2026 23:06",
+  "last_update": "2026-11-11T15:06:27Z",
   "timezone": "UTC+8",
   "thresholds": {
     "peak_heavy_mm": 20.0,
@@ -12,10 +12,45 @@
     "h24_extreme_mm": 50.0,
     "h24_moderate_mm": 15.0
   },
-  "has_warnings": false,
+  "has_warnings": true,
   "n_heavy": 0,
   "n_extreme": 0,
-  "n_moderate": 0,
-  "stations": [],
-  "summary": []
+  "n_moderate": 3,
+  "stations": [
+    {
+      "lat": -7.538175,
+      "lon": 139.414435,
+      "peak_mm": 11.4,
+      "expected_24h_mm": 13.1,
+      "max_pop": 100,
+      "level": "moderate",
+      "peak_level": "moderate",
+      "h24_level": "normal"
+    },
+    {
+      "lat": -7.478197,
+      "lon": 139.39261,
+      "peak_mm": 10.1,
+      "expected_24h_mm": 11.7,
+      "max_pop": 100,
+      "level": "moderate",
+      "peak_level": "moderate",
+      "h24_level": "normal"
+    },
+    {
+      "lat": -7.52229,
+      "lon": 139.365513,
+      "peak_mm": 10.7,
+      "expected_24h_mm": 12.3,
+      "max_pop": 100,
+      "level": "moderate",
+      "peak_level": "moderate",
+      "h24_level": "normal"
+    }
+  ],
+  "summary": [
+    "MODERATE: Peak 11.4 mm / 24h 13.1 mm @ (-7.538, 139.414)",
+    "MODERATE: Peak 10.1 mm / 24h 11.7 mm @ (-7.478, 139.393)",
+    "MODERATE: Peak 10.7 mm / 24h 12.3 mm @ (-7.522, 139.366)"
+  ]
 }
