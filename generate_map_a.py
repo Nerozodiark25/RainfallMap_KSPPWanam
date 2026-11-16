@@ -73,7 +73,32 @@ def embed_image_to_base64(image_path):
         encoded = base64.b64encode(img_file.read()).decode("utf-8")
         return f"data:image/png;base64,{encoded}"
 
+def style_map_controls(m):
+    css = """
+    <style>
+        /* Top-Right: Layer Control (Basemaps & Overlays) */
+        .leaflet-control-layers {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
+            font-size: 13px !important;
+            color: #333333 !important;
+        }
 
+        /* Bottom-Right: Attribution Bar */
+        .leaflet-control-attribution {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
+            font-size: 11px !important;
+            color: #555555 !important;
+        }
+        
+        /* Optional: Style the links inside the attribution bar */
+        .leaflet-control-attribution a {
+            color: #0066cc !important;
+            text-decoration: none;
+        }
+    </style>
+    """
+    m.get_root().header.add_child(Element(css))
+    
 # ────────────────────────────────────────────────
 # API Helpers
 # ────────────────────────────────────────────────
@@ -489,7 +514,7 @@ def add_basemaps(m):
         tiles="https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png",
         attr='© OpenStreetMap contributors, Tiles style by Humanitarian OpenStreetMap Team',
         name="OSM HOT",
-        show=True,
+        show=False,
     ).add_to(m)
     folium.TileLayer(
         tiles="https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}",
@@ -512,6 +537,7 @@ def add_basemaps(m):
         max_zoom=19,
         show=True,
     ).add_to(m)
+    style_map_controls(m)
     
 # ────────────────────────────────────────────────
 # Prediction Map
