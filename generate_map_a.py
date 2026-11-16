@@ -80,7 +80,7 @@ def style_map_controls(m):
         /* Top-Right: Layer Control (Basemaps & Overlays) */
         .leaflet-control-layers {
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
-            font-size: 13px !important;
+            font-size: 12px !important;
             color: #333333 !important;
         }
 
