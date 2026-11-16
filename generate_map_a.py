@@ -19,6 +19,7 @@ from tenacity import retry, stop_after_attempt, wait_fixed
 import numpy as np
 import matplotlib.pyplot as plt
 from folium.plugins import HeatMap
+from branca.element import Element
 
 logging.basicConfig(
     filename="rainfall_maps_a.log",
