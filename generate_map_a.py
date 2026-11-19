@@ -769,36 +769,39 @@ def create_prediction_map():
     # ---------- Legend ----------
     legend_html_pred = '''
     {% raw %}
+    legend_html_pred = '''
+    {% raw %}
     <style>
         #legend-pred {
-            position: fixed; bottom: 54px; right: 8px; z-index: 1000;
-            background: rgba(255,255,255,0.97); padding: 9px 11px;
+            position: fixed; bottom: 60px; right: 10px; z-index: 1000;
+            background: rgba(255,255,255,0.97); padding: 5px 7px;
             border: 1px solid #ccc; border-radius: 6px;
             box-shadow: 0 3px 10px rgba(0,0,0,0.2);
-            width: 170px; font-size: 13px; line-height: 1.35;
-            user-select: none; cursor: move;
+            width: 30vw; max-width: 115px; min-width: 90px;
+            font-size: 9.2px; line-height: 1.3; user-select: none; cursor: move;
         }
-        #legend-pred p { margin: 0 0 6px 0; font-weight: bold; text-align: center; font-size: 15px; }
-        #legend-pred strong { font-size: 13px; display: block; text-align: center; }
-        #legend-pred img { width: 40px; height: 160px; object-fit: fill; display: block; margin: 3px auto; }
-        #legend-toggle { display: none; border: 0; background: transparent; font-weight: 700; font-size: 11px; width: 100%; cursor: pointer; }
-        @media (max-width: 700px) {
-            #legend-pred { width: auto; max-width: 46vw; padding: 4px 6px; font-size: 9.2px; cursor: default; }
-            #legend-pred p { margin-bottom: 4px; font-size: 11px; }
-            #legend-pred strong { font-size: 9.5px; }
-            #legend-pred .bars { display: flex; gap: 8px; align-items: flex-end; justify-content: center; }
-            #legend-pred img { width: 22px; height: 72px; }
-            #legend-toggle { display: block; }
-            #legend-pred.collapsed .bars { display: none; }
+        #legend-pred .resize-handle {
+            position: absolute; bottom: 1px; right: 1px; width: 12px; height: 12px;
+            background: linear-gradient(135deg, transparent 50%, #777 50%);
+            cursor: nwse-resize; opacity: 0.5;
+        }
+        #legend-pred:hover .resize-handle { opacity: 0.8; }
+        #legend-pred p { margin: 0 0 4px 0; font-weight: bold; text-align: center; font-size: 11px; }
+        #legend-pred strong { font-size: 9.5px; }
+        #legend-pred img { width: 85%; max-width: 78px; display: block; margin: 2px auto; }
+        @media (max-width: 768px) {
+            #legend-pred { width: 35vw; max-width: 130px; font-size: 9.5px; bottom: 50px; right: 8px; }
+            #legend-pred p { font-size: 10px; }
+            #legend-pred img { max-width: 80px; }
         }
     </style>
     <div id="legend-pred">
-        <button type="button" id="legend-toggle">Legend</button>
         <p>Forecast Rainfall</p>
-        <div class="bars">
-            <div><strong>Peak</strong><img src="[PEAK_BASE64]"></div>
-            <div><strong>24h</strong><img src="[24H_BASE64]"></div>
-        </div>
+        <strong>Peak Rainfall</strong><br>
+        <img src="[PEAK_BASE64]"><br>
+        <strong>Expected 24h</strong><br>
+        <img src="[24H_BASE64]">
+        <div class="resize-handle"></div>
     </div>
     {% endraw %}
     '''
