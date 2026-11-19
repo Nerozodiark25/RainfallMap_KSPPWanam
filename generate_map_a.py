@@ -64,8 +64,7 @@ ZOOM_START = 12
 # Extra overlays. Put the files next to this script. A missing file is skipped.
 # show=False means the layer is in the control but turned off until the user ticks it.
 EXTRA_LAYERS = [
-    {"path": "west_wanam_ch.geojson", "name": "wanam timur", "color": "#6d4c41", "weight": 2.0, "show": True},
-    {"path": "East_wanam_ch.geojson", "name": "wanam barat", "color": "#6d4c41", "weight": 2.0, "show": True},
+    {"path": "East_wanam_ch.geojson", "name": "wanam timur", "color": "#6d4c41", "weight": 2.0, "show": True},
 ]
 # ===========================================
 
