@@ -769,8 +769,6 @@ def create_prediction_map():
     # ---------- Legend ----------
     legend_html_pred = '''
     {% raw %}
-    legend_html_pred = '''
-    {% raw %}
     <style>
         #legend-pred {
             position: fixed; bottom: 60px; right: 10px; z-index: 1000;
