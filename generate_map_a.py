@@ -89,6 +89,9 @@ def style_map_controls(m):
             font-size: 11px !important;
             color: #333333 !important;
         }
+        .leaflet-top .leaflet-control {
+            margin-top: 5px !important;
+        }
 
         /* Bottom-Right: Attribution Bar */
         .leaflet-control-attribution {
