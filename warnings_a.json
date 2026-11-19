@@ -1,8 +1,8 @@
 {
   "map": "KSPP",
   "area": "Wanam",
-  "generated": "19 November 2026 14:20",
-  "last_update": "2026-11-19T06:20:48Z",
+  "generated": "19 November 2026 14:28",
+  "last_update": "2026-11-19T06:28:33Z",
   "timezone": "UTC+8",
   "thresholds": {
     "peak_heavy_mm": 20.0,
