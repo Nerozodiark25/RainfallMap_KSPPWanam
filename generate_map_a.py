@@ -573,7 +573,7 @@ def create_prediction_map():
     # One header, top-center. Timestamp lives inside it so the top-right
     # stays free for the (collapsed) layer control.
     title_html = f'''
-    <div style="position:absolute; top:10px; left:50%; transform:translateX(-50%);
+    <div style="position:absolute; top:5px; left:50%; transform:translateX(-50%);
                 background:rgba(255,255,255,0.94); padding:6px 16px 5px; border-radius:6px;
                 box-shadow:0 2px 8px rgba(0,0,0,0.22); z-index:1000; text-align:center;
                 border:1px solid #ccc; max-width:min(560px, 70vw); pointer-events:none;">
