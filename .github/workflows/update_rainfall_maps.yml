@@ -1,4 +1,4 @@
-name: Update Rainfall Maps - Staggered
+name: Update Rainfall Map(s)
 permissions:
   contents: write
 on:
