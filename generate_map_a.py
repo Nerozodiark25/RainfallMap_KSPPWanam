@@ -772,18 +772,20 @@ def create_prediction_map():
     <style>
         #legend-pred {
             position: fixed; bottom: 54px; right: 8px; z-index: 1000;
-            background: rgba(255,255,255,0.97); padding: 5px 7px;
+            background: rgba(255,255,255,0.97); padding: 9px 11px;
             border: 1px solid #ccc; border-radius: 6px;
             box-shadow: 0 3px 10px rgba(0,0,0,0.2);
-            width: 115px; font-size: 9.2px; line-height: 1.3;
+            width: 170px; font-size: 13px; line-height: 1.35;
             user-select: none; cursor: move;
         }
-        #legend-pred p { margin: 0 0 4px 0; font-weight: bold; text-align: center; font-size: 11px; }
-        #legend-pred strong { font-size: 9.5px; display: block; text-align: center; }
-        #legend-pred img { width: 28px; height: 110px; object-fit: fill; display: block; margin: 2px auto; }
+        #legend-pred p { margin: 0 0 6px 0; font-weight: bold; text-align: center; font-size: 15px; }
+        #legend-pred strong { font-size: 13px; display: block; text-align: center; }
+        #legend-pred img { width: 40px; height: 160px; object-fit: fill; display: block; margin: 3px auto; }
         #legend-toggle { display: none; border: 0; background: transparent; font-weight: 700; font-size: 11px; width: 100%; cursor: pointer; }
         @media (max-width: 700px) {
-            #legend-pred { width: auto; max-width: 46vw; padding: 4px 6px; cursor: default; }
+            #legend-pred { width: auto; max-width: 46vw; padding: 4px 6px; font-size: 9.2px; cursor: default; }
+            #legend-pred p { margin-bottom: 4px; font-size: 11px; }
+            #legend-pred strong { font-size: 9.5px; }
             #legend-pred .bars { display: flex; gap: 8px; align-items: flex-end; justify-content: center; }
             #legend-pred img { width: 22px; height: 72px; }
             #legend-toggle { display: block; }
