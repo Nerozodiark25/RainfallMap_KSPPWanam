@@ -1,2 +1,2 @@
-# rainfallprediction_Gorontalo
-Rainfall maps generation for 3 distinct area corresponding to basin in Gorontalo Province
+# Rainfall Prediction Dashboard - KSPP Wanam
+Rainfall maps generation based on satellite data with IDW interpolation for spatial coverage interpolation
